@@ -1,0 +1,293 @@
+{
+  "products": [
+    {
+      "id": "p1",
+      "name": "Nova X Pro 5G",
+      "brand": "Nova",
+      "category": "Phones",
+      "price": 54999,
+      "oldPrice": 59999,
+      "description": "A fast, capable smartphone with a vivid display, reliable cameras and all-day battery life.",
+      "specifications": [
+        "6.7-inch AMOLED display",
+        "256GB storage",
+        "12GB RAM",
+        "5G connectivity"
+      ],
+      "stock": 12,
+      "image": "/images/nova.jpg",
+      "featured": true
+    },
+    {
+      "id": "p2",
+      "name": "iPhone 18 Pro",
+      "brand": "Apple",
+      "category": "Phones",
+      "price": 134900,
+      "oldPrice": 144900,
+      "description": "Experience premium performance with the iPhone 18 Pro, featuring an advanced camera system, powerful processor and stunning display.",
+      "specifications": [
+        "6.3-inch Super Retina XDR OLED display",
+        "256GB storage",
+        "Advanced Pro camera system",
+        "5G connectivity",
+        "Face ID"
+      ],
+      "stock": 12,
+      "image": "/images/iphone-1.jpg",
+      "featured": true
+    },
+    {
+      "id": "p3",
+      "name": "PixelPeak Lite",
+      "brand": "PixelPeak",
+      "category": "Phones",
+      "price": 24999,
+      "oldPrice": 27999,
+      "description": "A balanced everyday phone with a clean design and dependable performance.",
+      "specifications": [
+        "6.5-inch OLED display",
+        "128GB storage",
+        "8GB RAM",
+        "Fast charging"
+      ],
+      "stock": 18,
+      "image": "/images/pixel.jpg",
+      "featured": true
+    },
+    {
+      "id": "p4",
+      "name": "AeroBook 14",
+      "brand": "Aero",
+      "category": "Laptops",
+      "price": 74990,
+      "oldPrice": 79990,
+      "description": "A lightweight laptop designed for development, productivity and everyday work.",
+      "specifications": [
+        "14-inch display",
+        "16GB RAM",
+        "512GB SSD",
+        "Backlit keyboard"
+      ],
+      "stock": 7,
+      "image": "/images/macm5.jpg",
+      "featured": true
+    },
+    {
+      "id": "p5",
+      "name": "StudioView 27",
+      "brand": "StudioView",
+      "category": "Monitors",
+      "price": 18999,
+      "oldPrice": 21999,
+      "description": "A sharp 27-inch monitor for multitasking, study and entertainment.",
+      "specifications": [
+        "27-inch IPS panel",
+        "QHD resolution",
+        "75Hz refresh rate",
+        "HDMI and DisplayPort"
+      ],
+      "stock": 9,
+      "image": "/images/moniter-1.jpg",
+      "featured": false
+    },
+    {
+      "id": "p6",
+      "name": "KeyPro Mechanical",
+      "brand": "KeyPro",
+      "category": "Keyboards",
+      "price": 3999,
+      "oldPrice": 4499,
+      "description": "A compact mechanical keyboard with tactile switches and a durable frame.",
+      "specifications": [
+        "TKL layout",
+        "Hot-swappable switches",
+        "USB-C connection",
+        "White backlight"
+      ],
+      "stock": 25,
+      "image": "/images/key-1.jpg",
+      "featured": false
+    },
+    {
+      "id": "p7",
+      "name": "CoreBox Gaming PC",
+      "brand": "CoreBox",
+      "category": "CPUs",
+      "price": 89999,
+      "oldPrice": 94999,
+      "description": "A desktop tower configuration for demanding applications and gaming.",
+      "specifications": [
+        "8-core processor",
+        "32GB RAM",
+        "1TB NVMe SSD",
+        "Dedicated graphics"
+      ],
+      "stock": 4,
+      "image": "/images/gamingpc.jpg",
+      "featured": true
+    },
+    {
+      "id": "p8",
+      "name": "SwiftGlide Wireless Mouse",
+      "brand": "SwiftGlide",
+      "category": "Mice",
+      "price": 1499,
+      "oldPrice": 1799,
+      "description": "A comfortable wireless mouse with adjustable sensitivity.",
+      "specifications": [
+        "2.4GHz wireless",
+        "Adjustable DPI",
+        "Ergonomic shape",
+        "USB receiver"
+      ],
+      "stock": 30,
+      "image": "/images/mouse-1.jpg",
+      "featured": false
+    },
+    {
+      "id": "p9",
+      "name": "SwiftGlide Wireless Mouse",
+      "brand": "SwiftGlide",
+      "category": "Mice",
+      "price": 1499,
+      "oldPrice": 1799,
+      "description": "A comfortable wireless mouse with adjustable sensitivity.",
+      "specifications": [
+        "2.4GHz wireless",
+        "Adjustable DPI",
+        "Ergonomic shape",
+        "USB receiver"
+      ],
+      "stock": 30,
+      "image": "/images/mouse-2.jpg",
+      "featured": false
+    }
+  ],
+  "users": [
+    {
+      "name": "Saj Shellu",
+      "email": "sajshellu2468@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2026-11-03T08:29:31.787Z",
+      "id": 1
+    },
+    {
+      "name": "Angelina Mary",
+      "email": "paulyangel1008@gmail.com",
+      "password": "098765",
+      "role": "user",
+      "createdAt": "2026-11-03T08:42:52.401Z",
+      "id": 2
+    },
+    {
+      "name": "Fathima Shamna",
+      "email": "shamna@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2026-11-05T04:16:09.501Z",
+      "id": 3
+    }
+  ],
+  "orders": [
+    {
+      "userId": "1",
+      "customerName": "Saj Shellu",
+      "address": {
+        "fullName": "Saj Shellu",
+        "phone": "7994513483",
+        "line": "rainbow tvm kerala",
+        "city": "tvm",
+        "pincode": "695573"
+      },
+      "items": [
+        {
+          "id": "p1",
+          "name": "Nova X Pro 5G",
+          "price": 54999,
+          "quantity": 1,
+          "image": "/images/replace-product-image.jpg"
+        },
+        {
+          "id": "p3",
+          "name": "AeroBook 14",
+          "price": 74990,
+          "quantity": 1,
+          "image": "/images/replace-product-image.jpg"
+        }
+      ],
+      "total": 129989,
+      "status": "Placed",
+      "createdAt": "2026-11-03T10:14:31.342Z",
+      "id": 1
+    },
+    {
+      "userId": "1",
+      "customerName": "Saj Shellu",
+      "address": {
+        "fullName": "Saj Shellu",
+        "phone": "7994513483",
+        "line": "rainbow tvm kerala",
+        "city": "tvm",
+        "pincode": "695573"
+      },
+      "items": [
+        {
+          "id": "p2",
+          "name": "Iphone 18 Pro",
+          "price": 54999,
+          "quantity": 1,
+          "image": "/images/iphone-1.jpg"
+        }
+      ],
+      "total": 54999,
+      "status": "Placed",
+      "createdAt": "2026-11-04T06:08:47.406Z",
+      "id": 2
+    },
+    {
+      "userId": "3",
+      "customerName": "Fathima Shamna",
+      "address": {
+        "fullName": "Fathima Shamna",
+        "phone": "9292026878",
+        "line": "karuvadiyil vazhakkad malappuram kondotty",
+        "city": "Calicut",
+        "pincode": "673640"
+      },
+      "items": [
+        {
+          "id": "p2",
+          "name": "iPhone 18 Pro",
+          "price": 134900,
+          "quantity": 2,
+          "image": "/images/iphone-1.jpg"
+        }
+      ],
+      "total": 269800,
+      "status": "Placed",
+      "createdAt": "2026-11-05T04:17:40.302Z",
+      "id": 3
+    }
+  ],
+  "carts": [
+    {
+      "userId": "1",
+      "items": [],
+      "id": 1
+    },
+    {
+      "userId": "3",
+      "items": [],
+      "id": 2
+    }
+  ],
+  "wishlists": [
+    {
+      "userId": "3",
+      "items": [],
+      "id": 1
+    }
+  ]
+}

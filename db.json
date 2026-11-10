@@ -279,7 +279,27 @@
     },
     {
       "userId": "3",
-      "items": [],
+      "items": [
+        {
+          "id": "p1",
+          "name": "Nova X Pro 5G",
+          "brand": "Nova",
+          "category": "Phones",
+          "price": 54999,
+          "oldPrice": 59999,
+          "description": "A fast, capable smartphone with a vivid display, reliable cameras and all-day battery life.",
+          "specifications": [
+            "6.7-inch AMOLED display",
+            "256GB storage",
+            "12GB RAM",
+            "5G connectivity"
+          ],
+          "stock": 12,
+          "image": "/images/nova.jpg",
+          "featured": true,
+          "quantity": 1
+        }
+      ],
       "id": 2
     }
   ],

@@ -3,7 +3,7 @@
 :root {
     font-family: 'DM Sans', sans-serif;
     color: #18202b;
-    background: #cdd0d5;
+    background: #fbfcfe;
     font-synthesis: none;
     text-rendering: optimizeLegibility
 }
@@ -243,8 +243,8 @@ button:disabled {
 
 .value-card {
   padding: 28px;
-  background: #191919;
-  border: 1px solid #f3efef;
+  background: #faf7f7;
+  border: 1px solid #615f5f;
   border-radius: 12px;
 }
 
@@ -498,7 +498,7 @@ button:disabled {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #18202b
+    color: #aacdf0
 }
 
 .device-screen span {

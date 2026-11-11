@@ -1,6 +1,8 @@
 
 import React from "react";
 import { ShieldCheck, Truck, Headphones, Award } from "lucide-react";
+import { Link } from "react-router-dom"
+import { ArrowLeft } from "lucide-react";
 
 const values = [
   {
@@ -28,6 +30,11 @@ const values = [
 export default function About() {
   return (
     <main className="about-page">
+
+      <Link to="/" className="back-button">
+        <ArrowLeft size={17} />
+        Back to Home
+      </Link>
       <section className="about-hero">
         <span className="eyebrow">GET TO KNOW US</span>
         <h1>

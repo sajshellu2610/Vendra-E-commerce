@@ -244,7 +244,7 @@ button:disabled {
 .value-card {
   padding: 28px;
   background: #faf7f7;
-  border: 1px solid #615f5f;
+  border: 1px solid #858383;
   border-radius: 12px;
 }
 
@@ -266,8 +266,9 @@ button:disabled {
 .about-cta {
   padding: 65px 25px;
   text-align: center;
-  background: #191919;
+  background: #fffdfd;
   border-radius: 16px;
+  border: solid #9d9a9a;
 }
 
 .about-cta p {

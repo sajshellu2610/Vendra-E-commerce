@@ -1,25 +1,35 @@
 
-import React, { useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 
-import { addToCartAsync } from '../redux/slices/cartSlice';
-import { toggleWishlistAsync } from '../redux/slices/wishlistSlice';
+import { getProductById } from "../services/productService";
 
-import { Heart, ShoppingCart, ArrowLeft } from 'lucide-react';
-import Loader from '../components/Loader';
+import { addToCartAsync } from "../redux/slices/cartSlice";
+import { toggleWishlistAsync } from "../redux/slices/wishlistSlice";
+
+import { Heart, ShoppingCart, ArrowLeft } from "lucide-react";
+import Loader from "../components/Loader";
 
 export default function ProductDetails() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { items, loading } = useSelector((state) => state.products);
   const user = useSelector((state) => state.auth.user);
 
-  const product = items.find(
-    (item) => String(item.id) === String(id)
-  );
+  // Fetch individual product using TanStack Query
+  const {
+    data: product,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProductById(id),
+    enabled: !!id,
+  });
 
   const saved = useSelector((state) =>
     state.wishlist.items.some(
@@ -29,7 +39,21 @@ export default function ProductDetails() {
 
   const [quantity, setQuantity] = useState(1);
 
-  if (loading && !product) return <Loader />;
+  if (isLoading) {
+    return <Loader text="Loading product details..." />;
+  }
+
+  if (isError) {
+    return (
+      <div className="empty-state">
+        <h2>Could not load product</h2>
+        <p>{error.message}</p>
+        <Link to="/" className="button">
+          Back to shop
+        </Link>
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -44,11 +68,10 @@ export default function ProductDetails() {
 
   const handleAddToCart = () => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
-    // Add the selected quantity in one API update.
     dispatch(
       addToCartAsync({
         userId: user.id,
@@ -62,7 +85,7 @@ export default function ProductDetails() {
 
   const handleWishlist = () => {
     if (!user) {
-      navigate('/login');
+      navigate("/login");
       return;
     }
 
@@ -83,10 +106,10 @@ export default function ProductDetails() {
       <div className="details-grid">
         <div className="details-image">
           <img
-            src={product.image || '/images/product-placeholder.svg'}
+            src={product.image || "/images/product-placeholder.svg"}
             alt={product.name}
             onError={(e) => {
-              e.currentTarget.src = '/images/product-placeholder.svg';
+              e.currentTarget.src = "/images/product-placeholder.svg";
             }}
           />
         </div>
@@ -99,11 +122,11 @@ export default function ProductDetails() {
           <h1>{product.name}</h1>
 
           <div className="details-price">
-            ₹{Number(product.price).toLocaleString('en-IN')}
+            ₹{Number(product.price).toLocaleString("en-IN")}
 
             {product.oldPrice > product.price && (
               <del>
-                ₹{Number(product.oldPrice).toLocaleString('en-IN')}
+                ₹{Number(product.oldPrice).toLocaleString("en-IN")}
               </del>
             )}
           </div>
@@ -115,13 +138,13 @@ export default function ProductDetails() {
           <div
             className={
               product.stock > 0
-                ? 'stock-status in-stock'
-                : 'stock-status out-stock'
+                ? "stock-status in-stock"
+                : "stock-status out-stock"
             }
           >
             {product.stock > 0
               ? `${product.stock} units available`
-              : 'Currently out of stock'}
+              : "Currently out of stock"}
           </div>
 
           <h3>Specifications</h3>
@@ -167,9 +190,9 @@ export default function ProductDetails() {
           >
             <Heart
               size={17}
-              fill={saved ? 'currentColor' : 'none'}
+              fill={saved ? "currentColor" : "none"}
             />
-            {saved ? 'Remove from wishlist' : 'Add to wishlist'}
+            {saved ? "Remove from wishlist" : "Add to wishlist"}
           </button>
         </div>
       </div>

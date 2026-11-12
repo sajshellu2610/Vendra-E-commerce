@@ -1,9 +1,11 @@
 
 import React, { useMemo, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 import { Search, SlidersHorizontal, ArrowUpDown } from "lucide-react";
+
 import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
+import { getProducts } from "../services/productService";
 
 const PAGE_SIZE = 8;
 
@@ -18,9 +20,16 @@ const categories = [
 ];
 
 export default function Home() {
-  const { items, loading, error } = useSelector(
-    (state) => state.products
-  );
+  // Fetch products using TanStack Query
+  const {
+    data: items = [],
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: getProducts,
+  });
 
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
@@ -67,7 +76,6 @@ export default function Home() {
     Math.ceil(filtered.length / PAGE_SIZE)
   );
 
-  // Reset page if the current page no longer exists
   useEffect(() => {
     if (page > pageCount) {
       setPage(pageCount);
@@ -203,16 +211,16 @@ export default function Home() {
           ))}
         </div>
 
-        {loading && <Loader text="Loading products..." />}
+        {isLoading && <Loader text="Loading products..." />}
 
-        {error && (
+        {isError && (
           <div className="error-box">
-            Could not load products: {error}. Check that JSON Server is
-            running on port 3001.
+            Could not load products: {error.message}. Check that JSON Server
+            is running on port 3001.
           </div>
         )}
 
-        {!loading && !error && visible.length === 0 && (
+        {!isLoading && !isError && visible.length === 0 && (
           <div className="empty-state">
             <h2>No products found</h2>
             <p>Try another search or category.</p>
@@ -229,7 +237,7 @@ export default function Home() {
           </div>
         )}
 
-        {!loading && !error && visible.length > 0 && (
+        {!isLoading && !isError && visible.length > 0 && (
           <div className="product-grid">
             {visible.map((product) => (
               <ProductCard key={product.id} product={product} />
@@ -237,7 +245,7 @@ export default function Home() {
           </div>
         )}
 
-        {!loading && pageCount > 1 && (
+        {!isLoading && !isError && pageCount > 1 && (
           <div className="pagination">
             <button
               disabled={page === 1}

@@ -4,9 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Toaster } from "sonner";
 
-import { fetchProducts } from "./redux/slices/productSlice";
 import { restoreSession } from "./redux/slices/authSlice";
-import { fetchOrders } from "./redux/slices/orderSlice";
 
 import { fetchCart, resetCart } from "./redux/slices/cartSlice";
 import {
@@ -33,6 +31,7 @@ export default function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
 
+  // Fetch cart and wishlist for logged-in user
   useEffect(() => {
     if (user?.id) {
       dispatch(fetchCart(user.id));
@@ -43,14 +42,13 @@ export default function App() {
     }
   }, [user?.id, dispatch]);
 
+  // Restore user session
   useEffect(() => {
     dispatch(restoreSession());
-    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
     <>
-      {/* Global Toast Notifications */}
       <Toaster
         position="top-right"
         richColors

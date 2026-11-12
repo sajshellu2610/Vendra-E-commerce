@@ -14,7 +14,7 @@ export default function Wishlist() {
   const items = useSelector((state) => state.wishlist.items);
   const user = useSelector((state) => state.auth.user);
 
-  // Move product from Wishlist to Cart
+  // Move product
   const handleMoveToCart = async (item) => {
     if (!user) {
       navigate('/login');
@@ -34,7 +34,7 @@ export default function Wishlist() {
         })
       );
 
-      // Remove from Wishlist only if adding to Cart succeeds
+      // Remove from 
       if (addToCartAsync.fulfilled.match(result)) {
         await dispatch(
           toggleWishlistAsync({
@@ -48,7 +48,7 @@ export default function Wishlist() {
     }
   };
 
-  // Remove product from Wishlist
+  // Remove product
   const handleRemove = (item) => {
     if (!user) {
       navigate('/login');

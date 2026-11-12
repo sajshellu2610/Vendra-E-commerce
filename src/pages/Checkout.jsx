@@ -72,14 +72,14 @@ export default function Checkout() {
         createdAt: new Date().toISOString(),
       };
 
-      // Save order to JSON Server
+      // Save order 
       const result = await dispatch(placeOrder(order));
 
       if (!placeOrder.fulfilled.match(result)) {
         return;
       }
 
-      // Clear cart from JSON Server and Redux
+      // Clear cart 
       const clearResult = await dispatch(clearCartAsync(user.id));
 
       if (!clearCartAsync.fulfilled.match(clearResult)) {

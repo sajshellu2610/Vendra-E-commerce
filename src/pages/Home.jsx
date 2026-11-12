@@ -20,7 +20,6 @@ const categories = [
 ];
 
 export default function Home() {
-  // Fetch products using TanStack Query
   const {
     data: items = [],
     isLoading,

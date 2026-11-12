@@ -18,8 +18,7 @@ export default function ProductDetails() {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.auth.user);
-
-  // Fetch individual product using TanStack Query
+  
   const {
     data: product,
     isLoading,

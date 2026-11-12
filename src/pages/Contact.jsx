@@ -54,7 +54,6 @@ export default function Contact() {
   return (
     <main className="contact-page">
 
-      {/* Back to Home */}
       <Link to="/" className="back-button">
         <ArrowLeft size={17} />
         Back to Home

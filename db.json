@@ -274,7 +274,28 @@
   "carts": [
     {
       "userId": "1",
-      "items": [],
+      "items": [
+        {
+          "id": "p2",
+          "name": "iPhone 18 Pro",
+          "brand": "Apple",
+          "category": "Phones",
+          "price": 134900,
+          "oldPrice": 144900,
+          "description": "Experience premium performance with the iPhone 18 Pro, featuring an advanced camera system, powerful processor and stunning display.",
+          "specifications": [
+            "6.3-inch Super Retina XDR OLED display",
+            "256GB storage",
+            "Advanced Pro camera system",
+            "5G connectivity",
+            "Face ID"
+          ],
+          "stock": 12,
+          "image": "/images/iphone-1.jpg",
+          "featured": true,
+          "quantity": 1
+        }
+      ],
       "id": 1
     },
     {

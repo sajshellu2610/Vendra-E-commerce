@@ -12,9 +12,11 @@ import {
   resetWishlist,
 } from "./redux/slices/wishlistSlice";
 
+// User Layout and Routes
 import UserLayout from "./layouts/UserLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
+// User Pages
 import Home from "./pages/Home";
 import ProductDetails from "./pages/ProductDetails";
 import Login from "./pages/Login";
@@ -26,6 +28,11 @@ import Orders from "./pages/Orders";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+
+// Admin Layout and Authentication
+import AdminLayout from "./admin/layouts/AdminLayout";
+import AdminLogin from "./admin/pages/AdminLogin";
+import AdminProtectedRoute from "./admin/components/AdminProtectedRoute";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -57,6 +64,8 @@ export default function App() {
       />
 
       <Routes>
+        {/* ================= USER ROUTES ================= */}
+
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products/:id" element={<ProductDetails />} />
@@ -69,12 +78,77 @@ export default function App() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/orders" element={<Orders />} />
           </Route>
-
-          <Route path="*" element={<NotFound />} />
         </Route>
 
+        {/* Other User Pages */}
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+
+        {/* ================= ADMIN LOGIN ================= */}
+
+        <Route
+          path="/admin/login"
+          element={<AdminLogin />}
+        />
+
+        {/* ================= PROTECTED ADMIN ROUTES ================= */}
+
+        <Route element={<AdminProtectedRoute />}>
+          <Route element={<AdminLayout />}>
+
+            <Route
+              path="/admin/dashboard"
+              element={
+                <div className="p-8">
+                  <h1 className="text-2xl font-bold">
+                    Vendra Admin Dashboard
+                  </h1>
+                  <p className="mt-2 text-gray-500">
+                    Welcome to the admin panel!
+                  </p>
+                </div>
+              }
+            />
+
+            <Route
+              path="/admin/products"
+              element={
+                <div className="p-8">
+                  <h1 className="text-2xl font-bold">
+                    Products Management
+                  </h1>
+                </div>
+              }
+            />
+
+            <Route
+              path="/admin/users"
+              element={
+                <div className="p-8">
+                  <h1 className="text-2xl font-bold">
+                    Users Management
+                  </h1>
+                </div>
+              }
+            />
+
+            <Route
+              path="/admin/orders"
+              element={
+                <div className="p-8">
+                  <h1 className="text-2xl font-bold">
+                    Orders Management
+                  </h1>
+                </div>
+              }
+            />
+
+          </Route>
+        </Route>
+
+        {/* ================= NOT FOUND ================= */}
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );

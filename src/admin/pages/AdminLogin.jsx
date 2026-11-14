@@ -1,11 +1,13 @@
+
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { ShieldCheck, Mail, Lock } from "lucide-react";
+import { ShieldCheck, Mail, Lock, Cpu } from "lucide-react";
 
 import api from "../../services/api";
 import { adminLogin } from "../../redux/slices/adminAuthSlice";
+import "../styles/admin.css";
 
 export default function AdminLogin() {
   const dispatch = useDispatch();
@@ -50,69 +52,75 @@ export default function AdminLogin() {
       );
 
       toast.success("Welcome to Vendra Admin Panel!");
-
       navigate("/admin/dashboard", { replace: true });
     } catch (error) {
-      toast.error("Login failed. Please check your server.");
       console.error(error);
+      toast.error("Login failed. Please check your server.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#10110e] flex items-center justify-center px-4">
-      <div className="w-full max-w-md bg-[#1b1d18] border border-white/10 rounded-2xl p-8">
+    <div className="admin-login-page">
+      <div className="admin-login-card">
 
-        <div className="flex justify-center mb-6">
-          <div className="bg-[#d9fa62] p-4 rounded-xl">
-            <ShieldCheck size={30} className="text-black" />
+        {/* Brand */}
+        <div className="admin-login-brand">
+          <div className="admin-login-logo">
+            <Cpu size={25} />
           </div>
+
+          <span>
+            VENDRA<span>.</span>
+          </span>
         </div>
 
-        <h1 className="text-2xl font-bold text-white text-center">
-          VENDRA Admin
-        </h1>
+        {/* Login Icon */}
+        <div className="admin-login-shield">
+          <ShieldCheck size={30} />
+        </div>
 
-        <p className="text-gray-400 text-sm text-center mt-2 mb-8">
-          Sign in to manage your store
-        </p>
+        {/* Heading */}
+        <div className="admin-login-heading">
+          <h1>Admin Login</h1>
+          <p>Sign in to manage your Vendra store</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        {/* Login Form */}
+        <form onSubmit={handleSubmit} className="admin-login-form">
 
-          <div>
-            <label className="block text-sm text-gray-300 mb-2">
-              Admin Email
-            </label>
+          <div className="admin-login-field">
+            <label htmlFor="admin-email">Admin Email</label>
 
-            <div className="flex items-center gap-3 bg-[#10110e] border border-white/10 rounded-lg px-4">
-              <Mail size={18} className="text-gray-400" />
+            <div className="admin-login-input-wrapper">
+              <Mail size={18} />
 
               <input
+                id="admin-email"
                 type="email"
                 placeholder="Enter admin email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent py-3 text-white outline-none"
+                autoComplete="username"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm text-gray-300 mb-2">
-              Password
-            </label>
+          <div className="admin-login-field">
+            <label htmlFor="admin-password">Password</label>
 
-            <div className="flex items-center gap-3 bg-[#10110e] border border-white/10 rounded-lg px-4">
-              <Lock size={18} className="text-gray-400" />
+            <div className="admin-login-input-wrapper">
+              <Lock size={18} />
 
               <input
+                id="admin-password"
                 type="password"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-transparent py-3 text-white outline-none"
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -120,17 +128,19 @@ export default function AdminLogin() {
 
           <button
             type="submit"
+            className="admin-login-button"
             disabled={loading}
-            className="w-full bg-[#d9fa62] text-black font-semibold py-3 rounded-lg hover:bg-[#c9ed52] transition disabled:opacity-50"
           >
             {loading ? "Signing in..." : "Sign In"}
           </button>
 
         </form>
 
-        <p className="text-xs text-gray-500 text-center mt-6">
-          Vendra Admin Dashboard
-        </p>
+        {/* Footer */}
+        <div className="admin-login-footer">
+          <ShieldCheck size={14} />
+          <span>Vendra Admin Dashboard</span>
+        </div>
 
       </div>
     </div>

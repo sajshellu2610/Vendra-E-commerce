@@ -15,6 +15,6 @@ export const store = configureStore({
     wishlist: wishlistReducer,
     orders: orderReducer,
     adminAuth: adminAuthReducer,
-    adminDashboard: adminAuthReducer
+    adminDashboard: adminDashboardReducer
   }
 });

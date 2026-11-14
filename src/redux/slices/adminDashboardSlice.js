@@ -20,7 +20,8 @@ export const fetchDashboardData = createAsyncThunk(
       };
     } catch (error) {
       return rejectWithValue(
-        error.response?.data?.message || "Failed to fetch dashboard data"
+        error.response?.data?.message ||
+          "Failed to fetch dashboard data"
       );
     }
   }
@@ -37,7 +38,11 @@ const adminDashboardSlice = createSlice({
     error: null,
   },
 
-  reducers: {},
+  reducers: {
+    clearDashboardError: (state) => {
+      state.error = null;
+    },
+  },
 
   extraReducers: (builder) => {
     builder
@@ -59,5 +64,7 @@ const adminDashboardSlice = createSlice({
       });
   },
 });
+
+export const { clearDashboardError } = adminDashboardSlice.actions;
 
 export default adminDashboardSlice.reducer;

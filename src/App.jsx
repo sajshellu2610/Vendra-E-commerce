@@ -32,6 +32,8 @@ import NotFound from "./pages/NotFound";
 import AdminLayout from "./admin/layouts/AdminLayout";
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminProtectedRoute from "./admin/components/AdminProtectedRoute";
+import AdminDashboard from "./admin/pages/AdminDashboard";
+import AdminProducts from "./admin/pages/AdminProducts";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -97,27 +99,12 @@ export default function App() {
 
             <Route
               path="/admin/dashboard"
-              element={
-                <div className="p-8">
-                  <h1 className="text-2xl font-bold">
-                    Vendra Admin Dashboard
-                  </h1>
-                  <p className="mt-2 text-gray-500">
-                    Welcome to the admin panel!
-                  </p>
-                </div>
-              }
+              element={<AdminDashboard />}
             />
 
             <Route
               path="/admin/products"
-              element={
-                <div className="p-8">
-                  <h1 className="text-2xl font-bold">
-                    Products Management
-                  </h1>
-                </div>
-              }
+              element={<AdminProducts />}
             />
 
             <Route

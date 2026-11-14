@@ -27,6 +27,7 @@ import Orders from "./pages/Orders";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import AdminUsers from "./admin/pages/AdminUsers";
 
 // Admin Layout and Authentication
 import AdminLayout from "./admin/layouts/AdminLayout";
@@ -109,13 +110,7 @@ export default function App() {
 
             <Route
               path="/admin/users"
-              element={
-                <div className="p-8">
-                  <h1 className="text-2xl font-bold">
-                    Users Management
-                  </h1>
-                </div>
-              }
+              element={<AdminUsers />}
             />
 
             <Route
@@ -132,7 +127,7 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* ================= NOT FOUND ================= */}
+        {/* NOT FOUND */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

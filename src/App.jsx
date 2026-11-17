@@ -35,6 +35,7 @@ import AdminLogin from "./admin/pages/AdminLogin";
 import AdminProtectedRoute from "./admin/components/AdminProtectedRoute";
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminProducts from "./admin/pages/AdminProducts";
+import AdminOrders from "./admin/pages/AdminOrders";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -115,14 +116,7 @@ export default function App() {
 
             <Route
               path="/admin/orders"
-              element={
-                <div className="p-8">
-                  <h1 className="text-2xl font-bold">
-                    Orders Management
-                  </h1>
-                </div>
-              }
-            />
+              element={<AdminOrders />}/>
 
           </Route>
         </Route>

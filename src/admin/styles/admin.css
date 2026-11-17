@@ -1561,3 +1561,242 @@
     height: 32px;
   }
 }
+
+
+/* ==============================
+   ADMIN ORDERS
+============================== */
+
+.admin-orders-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-orders-toolbar h3 {
+  color: #f5f5f0;
+  margin: 0 0 5px;
+}
+
+.admin-orders-toolbar p {
+  color: #92938a;
+  font-size: 13px;
+  margin: 0;
+}
+
+.admin-orders-filters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-orders-status-filter,
+.admin-order-status-select {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid #34362f;
+  border-radius: 8px;
+  background: #20221c;
+  color: #f5f5f0;
+  outline: none;
+}
+
+.admin-order-id {
+  color: #d9fa62;
+  font-weight: 600;
+}
+
+.admin-order-status {
+  display: inline-flex;
+  padding: 6px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-order-status.pending {
+  background: rgba(235, 178, 65, 0.12);
+  color: #eabb55;
+}
+
+.admin-order-status.processing {
+  background: rgba(86, 157, 235, 0.12);
+  color: #78b5f4;
+}
+
+.admin-order-status.shipped {
+  background: rgba(162, 126, 235, 0.12);
+  color: #b69af5;
+}
+
+.admin-order-status.delivered {
+  background: rgba(67, 190, 120, 0.12);
+  color: #65d99a;
+}
+
+.admin-order-status.cancelled {
+  background: rgba(239, 83, 80, 0.12);
+  color: #ff7773;
+}
+
+.admin-order-view-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border: 1px solid #3a3c33;
+  border-radius: 7px;
+  background: transparent;
+  color: #d9fa62;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.admin-order-view-btn:hover {
+  background: rgba(217, 250, 98, 0.08);
+}
+
+/* Order details modal */
+
+.admin-order-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.admin-order-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border: 1px solid #34362f;
+  border-radius: 14px;
+  background: #191b16;
+}
+
+.admin-order-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid #34362f;
+}
+
+.admin-order-modal-header h3 {
+  color: #f5f5f0;
+  margin: 0 0 5px;
+}
+
+.admin-order-modal-header p {
+  color: #d9fa62;
+  font-size: 13px;
+  margin: 0;
+}
+
+.admin-order-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 7px;
+  background: #292b24;
+  color: #f5f5f0;
+  cursor: pointer;
+}
+
+.admin-order-modal-body {
+  padding: 20px;
+}
+
+.admin-order-detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #303229;
+}
+
+.admin-order-detail-row span {
+  color: #92938a;
+  font-size: 13px;
+}
+
+.admin-order-detail-row strong {
+  color: #f5f5f0;
+  font-size: 13px;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.admin-order-detail-section {
+  margin-top: 24px;
+}
+
+.admin-order-detail-section h4 {
+  color: #f5f5f0;
+  margin: 0 0 14px;
+}
+
+.admin-order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 12px 0;
+  border-bottom: 1px solid #303229;
+}
+
+.admin-order-item strong {
+  color: #f5f5f0;
+  font-size: 13px;
+}
+
+.admin-order-item p,
+.admin-order-no-items {
+  color: #92938a;
+  font-size: 12px;
+  margin: 6px 0 0;
+}
+
+.admin-order-status-select {
+  width: 100%;
+}
+
+.admin-order-updating {
+  color: #d9fa62;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+@media (max-width: 650px) {
+  .admin-orders-toolbar {
+    align-items: stretch;
+  }
+
+  .admin-orders-filters {
+    width: 100%;
+  }
+
+  .admin-orders-filters .admin-products-search {
+    flex: 1;
+    min-width: 180px;
+  }
+
+  .admin-orders-status-filter {
+    width: 100%;
+  }
+
+  .admin-order-modal-overlay {
+    padding: 10px;
+  }
+}

@@ -1,17 +1,24 @@
-import * as React from 'react';
-import { Outlet } from 'react-router-dom';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+
+import React from "react";
+import { Outlet } from "react-router-dom";
+
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 function UserLayout() {
   return (
-    <React.Fragment>
+    <>
+      {/* Customer Navbar */}
       <Navbar />
-      <main>
+
+      {/* Customer Pages */}
+      <main className="user-layout-main">
         <Outlet />
       </main>
+
+      {/* Customer Footer */}
       <Footer />
-    </React.Fragment>
+    </>
   );
 }
 

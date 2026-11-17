@@ -1,6 +1,12 @@
 
 import React from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
+
 import {
   ShoppingCart,
   Heart,
@@ -8,14 +14,18 @@ import {
   LogOut,
   Cpu,
 } from 'lucide-react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
 
 export default function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const user = useSelector((state) => state.auth.user);
+
+  const isLoginPage = location.pathname === '/login';
 
   const cartCount = useSelector((state) =>
     state.cart.items.reduce(
@@ -45,36 +55,45 @@ export default function Navbar() {
 
         <nav className="nav-links">
           <NavLink to="/">Shop</NavLink>
-          <NavLink to="/wishlist">Wishlist</NavLink>
+
+          {!isLoginPage && (
+            <NavLink to="/wishlist">Wishlist</NavLink>
+          )}
+
           {user && <NavLink to="/orders">My orders</NavLink>}
+
           <Link to="/about">About</Link>
           <Link to="/contact">Contact</Link>
         </nav>
 
         <div className="nav-actions">
-          {/* Wishlist */}
-          <Link
-            className="icon-link wishlist-link"
-            to="/wishlist"
-            aria-label={`Wishlist, ${wishlistCount} items`}
-          >
-            <Heart size={19} />
-            {wishlistCount > 0 && (
-              <span className="wishlist-count">
-                {wishlistCount}
-              </span>
-            )}
-          </Link>
+          {!isLoginPage && (
+            <>
+              {/* Wishlist */}
+              <Link
+                className="icon-link wishlist-link"
+                to="/wishlist"
+                aria-label={`Wishlist, ${wishlistCount} items`}
+              >
+                <Heart size={19} />
+                {wishlistCount > 0 && (
+                  <span className="wishlist-count">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
 
-          {/* Cart */}
-          <Link
-            className="icon-link cart-link"
-            to="/cart"
-            aria-label={`Cart, ${cartCount} items`}
-          >
-            <ShoppingCart size={20} />
-            <span>{cartCount}</span>
-          </Link>
+              {/* Cart */}
+              <Link
+                className="icon-link cart-link"
+                to="/cart"
+                aria-label={`Cart, ${cartCount} items`}
+              >
+                <ShoppingCart size={20} />
+                <span>{cartCount}</span>
+              </Link>
+            </>
+          )}
 
           {user ? (
             <div className="user-menu">

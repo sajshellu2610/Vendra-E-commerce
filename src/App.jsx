@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,19 +28,26 @@ import Orders from "./pages/Orders";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import AdminUsers from "./admin/pages/AdminUsers";
 
 // Admin Layout and Authentication
 import AdminLayout from "./admin/layouts/AdminLayout";
 import AdminLogin from "./admin/pages/AdminLogin";
 import AdminProtectedRoute from "./admin/components/AdminProtectedRoute";
+
+// Admin Pages
 import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminProducts from "./admin/pages/AdminProducts";
+import AdminUsers from "./admin/pages/AdminUsers";
 import AdminOrders from "./admin/pages/AdminOrders";
 
 export default function App() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+
+  // Restore user session
+  useEffect(() => {
+    dispatch(restoreSession());
+  }, [dispatch]);
 
   // Fetch cart and wishlist for logged-in user
   useEffect(() => {
@@ -52,11 +60,6 @@ export default function App() {
     }
   }, [user?.id, dispatch]);
 
-  // Restore user session
-  useEffect(() => {
-    dispatch(restoreSession());
-  }, [dispatch]);
-
   return (
     <>
       <Toaster
@@ -67,13 +70,17 @@ export default function App() {
       />
 
       <Routes>
-        {/* ================= USER ROUTES ================= */}
+        {/* CUSTOMER ROUTES */}
 
         <Route element={<UserLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/products/:id" element={<ProductDetails />} />
+
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<Cart />} />
@@ -83,22 +90,17 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* Other User Pages */}
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-
-        {/* ================= ADMIN LOGIN ================= */}
+        {/* ADMIN LOGIN - NO CUSTOMER NAVBAR */}
 
         <Route
           path="/admin/login"
           element={<AdminLogin />}
         />
 
-        {/* ================= PROTECTED ADMIN ROUTES ================= */}
+        {/* PROTECTED ADMIN ROUTES */}
 
         <Route element={<AdminProtectedRoute />}>
           <Route element={<AdminLayout />}>
-
             <Route
               path="/admin/dashboard"
               element={<AdminDashboard />}
@@ -116,8 +118,8 @@ export default function App() {
 
             <Route
               path="/admin/orders"
-              element={<AdminOrders />}/>
-
+              element={<AdminOrders />}
+            />
           </Route>
         </Route>
 

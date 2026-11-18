@@ -1,10 +1,14 @@
 
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Toaster } from "sonner";
+import { Toaster, toast } from "sonner";
 
-import { restoreSession } from "./redux/slices/authSlice";
+import {
+  restoreSession,
+  validateSession,
+  logout,
+} from "./redux/slices/authSlice";
 
 import { fetchCart, resetCart } from "./redux/slices/cartSlice";
 import {
@@ -42,6 +46,8 @@ import AdminOrders from "./admin/pages/AdminOrders";
 
 export default function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state.auth.user);
 
   // Restore user session
@@ -49,16 +55,43 @@ export default function App() {
     dispatch(restoreSession());
   }, [dispatch]);
 
+  // Validate existing customer session every 10 seconds
+  useEffect(() => {
+    if (!user?.id || user.role === "admin") return;
+
+    const checkUserStatus = async () => {
+      try {
+        const result = await dispatch(validateSession()).unwrap();
+
+        if (result === true) {
+          dispatch(logout());
+
+          toast.error("Your account has been blocked by admin.");
+
+          navigate("/login", { replace: true });
+        }
+      } catch (error) {
+        console.error("Session validation failed:", error);
+      }
+    };
+
+    checkUserStatus();
+
+    const interval = setInterval(checkUserStatus, 10000);
+
+    return () => clearInterval(interval);
+  }, [user?.id, user?.role, dispatch, navigate]);
+
   // Fetch cart and wishlist for logged-in user
   useEffect(() => {
-    if (user?.id) {
+    if (user?.id && user.role !== "admin") {
       dispatch(fetchCart(user.id));
       dispatch(fetchWishlist(user.id));
     } else {
       dispatch(resetCart());
       dispatch(resetWishlist());
     }
-  }, [user?.id, dispatch]);
+  }, [user?.id, user?.role, dispatch]);
 
   return (
     <>
@@ -90,12 +123,9 @@ export default function App() {
           </Route>
         </Route>
 
-        {/* ADMIN LOGIN - NO CUSTOMER NAVBAR */}
+        {/* ADMIN LOGIN */}
 
-        <Route
-          path="/admin/login"
-          element={<AdminLogin />}
-        />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
         {/* PROTECTED ADMIN ROUTES */}
 
@@ -122,8 +152,6 @@ export default function App() {
             />
           </Route>
         </Route>
-
-        {/* NOT FOUND */}
 
         <Route path="*" element={<NotFound />} />
       </Routes>

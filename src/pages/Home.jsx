@@ -7,7 +7,7 @@ import ProductCard from "../components/ProductCard";
 import Loader from "../components/Loader";
 import { getProducts } from "../services/productService";
 
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 4;
 
 const categories = [
   "All",

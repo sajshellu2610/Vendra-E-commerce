@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Link,
@@ -54,11 +53,11 @@ export default function Navbar() {
         </Link>
 
         <nav className="nav-links">
-          <NavLink to="/">Shop</NavLink>
+          <NavLink to="/shop">Shop</NavLink>
 
-          {!isLoginPage && (
+          {/* {!isLoginPage && (
             <NavLink to="/wishlist">Wishlist</NavLink>
-          )}
+          )} */}
 
           {user && <NavLink to="/orders">My orders</NavLink>}
 

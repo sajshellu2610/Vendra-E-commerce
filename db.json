@@ -162,6 +162,24 @@
       "stock": 30,
       "image": "/images/mouse-2.jpg",
       "featured": false
+    },
+    {
+      "id": "p10",
+      "name": "SwiftGlide Wireless Keyboard",
+      "brand": "SwiftGlide",
+      "category": "Keyboards",
+      "price": 2499,
+      "oldPrice": 2799,
+      "description": "A comfortable wireless Keyboard with sensitivity.",
+      "specifications": [
+        "2.4GHz wireless",
+        "Adjustable DPI",
+        "Ergonomic shape",
+        "USB receiver"
+      ],
+      "stock": 30,
+      "image": "/images/key-2.jpg",
+      "featured": false
     }
   ],
   "users": [
@@ -243,7 +261,7 @@
         }
       ],
       "total": 54999,
-      "status": "Placed",
+      "status": "Cancelled",
       "createdAt": "2026-11-04T06:08:47.406Z",
       "id": 2
     },

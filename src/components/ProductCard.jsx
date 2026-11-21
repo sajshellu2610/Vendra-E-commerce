@@ -14,6 +14,8 @@ export default function ProductCard({ product }) {
 
   const user = useSelector((state) => state.auth.user);
 
+  const productName = product.title || product.name || "Unnamed Product";
+
   const saved = useSelector((state) =>
     state.wishlist.items.some(
       (item) => String(item.id) === String(product.id)
@@ -36,7 +38,7 @@ export default function ProductCard({ product }) {
         })
       ).unwrap();
 
-      toast.success(`${product.name} added to cart!`);
+      toast.success(`${productName} added to cart!`);
     } catch (error) {
       toast.error('Unable to add product to cart.');
     }
@@ -59,9 +61,9 @@ export default function ProductCard({ product }) {
       ).unwrap();
 
       if (saved) {
-        toast.info(`${product.name} removed from wishlist.`);
+        toast.info(`${productName} removed from wishlist.`);
       } else {
-        toast.success(`${product.name} added to wishlist!`);
+        toast.success(`${productName} added to wishlist!`);
       }
     } catch (error) {
       toast.error('Unable to update wishlist.');
@@ -88,7 +90,7 @@ export default function ProductCard({ product }) {
         >
           <img
             src={product.image || '/images/product-placeholder.svg'}
-            alt={product.name}
+            alt={productName}
             onError={(e) => {
               e.currentTarget.src = '/images/product-placeholder.svg';
             }}
@@ -109,7 +111,7 @@ export default function ProductCard({ product }) {
           to={`/products/${product.id}`}
           className="product-name"
         >
-          {product.name}
+          {productName}
         </Link>
 
         <div className="price-row">

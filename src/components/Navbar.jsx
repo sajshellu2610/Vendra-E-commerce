@@ -96,10 +96,10 @@ export default function Navbar() {
 
           {user ? (
             <div className="user-menu">
-              <span className="user-name">
+              <Link className="user-name" to="/profile">
                 <UserRound size={16} />
                 {user.name}
-              </span>
+              </Link>
 
               <button
                 className="text-button"

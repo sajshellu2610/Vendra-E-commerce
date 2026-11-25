@@ -33,6 +33,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import Shop from "./pages/Shop";
+import Profile from "./pages/Profile"
 
 // Admin Layout and Authentication
 import AdminLayout from "./admin/layouts/AdminLayout";
@@ -116,6 +117,7 @@ export default function App() {
 
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<Profile />} />
 
           <Route element={<ProtectedRoute />}>
             <Route path="/cart" element={<Cart />} />

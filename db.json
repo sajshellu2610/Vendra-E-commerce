@@ -180,6 +180,15 @@
       "stock": 30,
       "image": "/images/key-2.jpg",
       "featured": false
+    },
+    {
+      "title": "Keyboard",
+      "price": 2999,
+      "category": "Keyboards",
+      "image": "https://www.amkette.com/collections/gaming-keyboards?srsltid=AYCX9vJys0SHlQ6nd-aYo3pqFs0HQyCAIPYaDbUbcdULvgSeyu7mG77S",
+      "description": "Wireless Keyboard",
+      "stock": 10,
+      "id": "MzbyUOC"
     }
   ],
   "users": [
@@ -190,7 +199,7 @@
       "role": "user",
       "createdAt": "2026-11-03T08:29:31.787Z",
       "id": 1,
-      "isBlocked": false
+      "isBlocked": true
     },
     {
       "name": "Angelina Mary",
@@ -207,6 +216,14 @@
       "role": "user",
       "createdAt": "2026-11-05T04:16:09.501Z",
       "id": 3
+    },
+    {
+      "name": "Hiba",
+      "email": "hiba24@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "createdAt": "2026-11-21T07:01:48.341Z",
+      "id": 4
     }
   ],
   "orders": [
@@ -237,7 +254,7 @@
         }
       ],
       "total": 129989,
-      "status": "Shipped",
+      "status": "Delivered",
       "createdAt": "2026-11-03T10:14:31.342Z",
       "id": 1
     },
@@ -336,6 +353,30 @@
       "status": "Placed",
       "createdAt": "2026-11-12T12:59:39.441Z",
       "id": 5
+    },
+    {
+      "userId": "4",
+      "customerName": "Hiba",
+      "address": {
+        "fullName": "Hiba",
+        "phone": "9876895470",
+        "line": "vzhathopil hiba kakkenchery",
+        "city": "Malappurum",
+        "pincode": "678854"
+      },
+      "items": [
+        {
+          "id": "p7",
+          "name": "CoreBox Gaming PC",
+          "price": 89999,
+          "quantity": 1,
+          "image": "/images/gamingpc.jpg"
+        }
+      ],
+      "total": 89999,
+      "status": "Processing",
+      "createdAt": "2026-11-21T07:04:08.826Z",
+      "id": 6
     }
   ],
   "carts": [
@@ -348,6 +389,36 @@
       "userId": "3",
       "items": [],
       "id": 2
+    },
+    {
+      "userId": "4",
+      "items": [],
+      "id": 3
+    },
+    {
+      "userId": "2",
+      "items": [
+        {
+          "id": "p9",
+          "name": "SwiftGlide Wireless Mouse",
+          "brand": "SwiftGlide",
+          "category": "Mice",
+          "price": 1499,
+          "oldPrice": 1799,
+          "description": "A comfortable wireless mouse with adjustable sensitivity.",
+          "specifications": [
+            "2.4GHz wireless",
+            "Adjustable DPI",
+            "Ergonomic shape",
+            "USB receiver"
+          ],
+          "stock": 30,
+          "image": "/images/mouse-2.jpg",
+          "featured": false,
+          "quantity": 1
+        }
+      ],
+      "id": 4
     }
   ],
   "wishlists": [

@@ -4,6 +4,7 @@ import {
   loginUser,
   registerUser,
   getUsers,
+  updateUser,
 } from "../../services/userService";
 
 const savedUser = localStorage.getItem("vendra_user");
@@ -78,6 +79,20 @@ export const login = createAsyncThunk(
   }
 );
 
+// UPDATE PROFILE
+export const updateProfile = createAsyncThunk(
+  "auth/updateProfile",
+  async ({ id, userData }, thunkAPI) => {
+    try {
+      return await updateUser(id, userData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || error.message
+      );
+    }
+  }
+);
+
 // VALIDATE EXISTING SESSION
 export const validateSession = createAsyncThunk(
   "auth/validateSession",
@@ -139,6 +154,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+
         localStorage.setItem(
           "vendra_user",
           JSON.stringify(action.payload)
@@ -159,6 +175,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload;
+
         localStorage.setItem(
           "vendra_user",
           JSON.stringify(action.payload)
@@ -166,6 +183,27 @@ const authSlice = createSlice({
       })
 
       .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      // UPDATE PROFILE
+      .addCase(updateProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+
+      .addCase(updateProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+
+        localStorage.setItem(
+          "vendra_user",
+          JSON.stringify(action.payload)
+        );
+      })
+
+      .addCase(updateProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

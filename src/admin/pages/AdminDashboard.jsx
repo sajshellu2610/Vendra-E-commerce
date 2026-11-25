@@ -10,6 +10,20 @@ import {
   RefreshCw,
 } from "lucide-react";
 
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+} from "recharts";
+
 import { fetchDashboardData } from "../../redux/slices/adminDashboardSlice";
 import "../../admin/styles/admin.css";
 
@@ -17,19 +31,18 @@ export default function AdminDashboard() {
   const dispatch = useDispatch();
 
   const {
-    products,
-    users,
-    orders,
+    products = [],
+    users = [],
+    orders = [],
     loading,
     error,
   } = useSelector((state) => state.adminDashboard);
 
-  // Fetch dashboard data when the page loads
   useEffect(() => {
     dispatch(fetchDashboardData());
   }, [dispatch]);
 
-  // Refresh dashboard data
+  // Refresh dashboard
   const handleRefresh = () => {
     dispatch(fetchDashboardData())
       .unwrap()
@@ -37,7 +50,7 @@ export default function AdminDashboard() {
       .catch(() => toast.error("Unable to refresh dashboard"));
   };
 
-  // Get order amount safely
+  // Get order amount
   const getOrderAmount = (order) => {
     return Number(
       order.total ??
@@ -48,18 +61,6 @@ export default function AdminDashboard() {
     );
   };
 
-  // Calculate total revenue
-  const totalRevenue = orders.reduce((total, order) => {
-    const status = String(order.status || "").toLowerCase();
-
-    // Exclude cancelled orders from revenue
-    if (status === "cancelled" || status === "failed") {
-      return total;
-    }
-
-    return total + getOrderAmount(order);
-  }, 0);
-
   // Format currency
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IN", {
@@ -69,7 +70,83 @@ export default function AdminDashboard() {
     }).format(amount);
   };
 
-  // Get customer name
+  // Check cancelled orders
+  const isCancelled = (order) => {
+    const status = String(order.status || "").toLowerCase();
+    return status === "cancelled" || status === "failed";
+  };
+
+  // Total revenue
+  const totalRevenue = orders.reduce((total, order) => {
+    if (isCancelled(order)) return total;
+    return total + getOrderAmount(order);
+  }, 0);
+
+  // Monthly revenue chart
+  const currentYear = new Date().getFullYear();
+
+  const monthlyRevenue = Array.from({ length: 12 }, (_, index) => {
+    const revenue = orders.reduce((total, order) => {
+      const orderDate = new Date(
+        order.createdAt || order.orderDate || order.date
+      );
+
+      if (
+        Number.isNaN(orderDate.getTime()) ||
+        orderDate.getFullYear() !== currentYear ||
+        orderDate.getMonth() !== index ||
+        isCancelled(order)
+      ) {
+        return total;
+      }
+
+      return total + getOrderAmount(order);
+    }, 0);
+
+    return {
+      month: new Date(currentYear, index).toLocaleString("en-IN", {
+        month: "short",
+      }),
+      revenue,
+    };
+  });
+
+  // Order status chart
+  const getStatusCount = (statuses) => {
+    return orders.filter((order) =>
+      statuses.includes(
+        String(order.status || "pending").toLowerCase()
+      )
+    ).length;
+  };
+
+  const orderStatusData = [
+    {
+      name: "Delivered",
+      value: getStatusCount(["delivered", "completed"]),
+    },
+    {
+      name: "Pending",
+      value: getStatusCount(["pending"]),
+    },
+    {
+      name: "Processing",
+      value: getStatusCount(["processing"]),
+    },
+    {
+      name: "Cancelled",
+      value: getStatusCount(["cancelled", "failed"]),
+    },
+  ];
+
+  const orderStatusColors = [
+    "#d9fa62",
+    "#f59e0b",
+    "#60a5fa",
+    "#ef4444",
+  ];
+
+  // Customer name
   const getCustomerName = (order) => {
     return (
       order.customerName ||
@@ -81,7 +158,7 @@ export default function AdminDashboard() {
     );
   };
 
-  // Get order date
+  // Order date
   const getOrderDate = (order) => {
     const date =
       order.createdAt ||
@@ -92,9 +169,7 @@ export default function AdminDashboard() {
 
     const parsedDate = new Date(date);
 
-    if (Number.isNaN(parsedDate.getTime())) {
-      return "N/A";
-    }
+    if (Number.isNaN(parsedDate.getTime())) return "N/A";
 
     return parsedDate.toLocaleDateString("en-IN", {
       day: "2-digit",
@@ -103,7 +178,7 @@ export default function AdminDashboard() {
     });
   };
 
-  // Get status class
+  // Status badge
   const getStatusClass = (status) => {
     const value = String(status || "pending").toLowerCase();
 
@@ -118,7 +193,7 @@ export default function AdminDashboard() {
     return "warning";
   };
 
-  // Sort orders by date and get the latest five
+  // Latest five orders
   const recentOrders = [...orders]
     .sort((a, b) => {
       const dateA = new Date(
@@ -133,6 +208,7 @@ export default function AdminDashboard() {
     })
     .slice(0, 5);
 
+  // Statistics
   const stats = [
     {
       title: "Total Products",
@@ -175,7 +251,10 @@ export default function AdminDashboard() {
           onClick={handleRefresh}
           disabled={loading}
         >
-          <RefreshCw size={17} className={loading ? "spin" : ""} />
+          <RefreshCw
+            size={17}
+            className={loading ? "spin" : ""}
+          />
           {loading ? "Refreshing..." : "Refresh"}
         </button>
       </div>
@@ -205,6 +284,118 @@ export default function AdminDashboard() {
             </div>
           );
         })}
+      </div>
+
+      {/* Dashboard Charts */}
+      <div className="admin-charts-grid">
+
+        {/* Revenue Chart */}
+        <div className="admin-panel admin-chart-panel">
+          <div className="admin-panel-header">
+            <div>
+              <h2>Revenue Overview</h2>
+              <p>Monthly revenue - {currentYear}</p>
+            </div>
+          </div>
+
+          <div className="admin-chart">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={monthlyRevenue}>
+                <CartesianGrid
+                  strokeDasharray="3 3"
+                  stroke="#38383e"
+                />
+
+                <XAxis
+                  dataKey="month"
+                  stroke="#a1a1aa"
+                />
+
+                <YAxis
+                  stroke="#a1a1aa"
+                  tickFormatter={(value) =>
+                    value >= 1000
+                      ? `₹${value / 1000}k`
+                      : `₹${value}`
+                  }
+                />
+
+                <Tooltip
+                  formatter={(value) => [
+                    formatCurrency(value),
+                    "Revenue",
+                  ]}
+                  contentStyle={{
+                    background: "#18181b",
+                    border: "1px solid #38383e",
+                    borderRadius: "8px",
+                    color: "#fff",
+                  }}
+                />
+
+                <Bar
+                  dataKey="revenue"
+                  name="Revenue"
+                  fill="#d9fa62"
+                  radius={[5, 5, 0, 0]}
+                />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Order Status Chart */}
+        <div className="admin-panel admin-chart-panel">
+          <div className="admin-panel-header">
+            <div>
+              <h2>Order Status</h2>
+              <p>Overview of all orders</p>
+            </div>
+          </div>
+
+          <div className="admin-chart">
+            {orders.length === 0 ? (
+              <div className="admin-empty">
+                <ShoppingBag size={30} />
+                <p>No order data available</p>
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={orderStatusData}
+                    dataKey="value"
+                    nameKey="name"
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={55}
+                    outerRadius={90}
+                    paddingAngle={4}
+                  >
+                    {orderStatusData.map((entry, index) => (
+                      <Cell
+                        key={entry.name}
+                        fill={orderStatusColors[index]}
+                      />
+                    ))}
+                  </Pie>
+
+                  <Tooltip
+                    contentStyle={{
+                      background: "#18181b",
+                      border: "1px solid #38383e",
+                      borderRadius: "8px",
+                      color: "#fff",
+                    }}
+                  />
+
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            )}
+          </div>
+        </div>
+
       </div>
 
       {/* Recent Orders */}
@@ -242,22 +433,12 @@ export default function AdminDashboard() {
               <tbody>
                 {recentOrders.map((order, index) => (
                   <tr key={order.id ?? index}>
-                    <td>
-                      #{order.id ?? "N/A"}
-                    </td>
-
-                    <td>
-                      {getCustomerName(order)}
-                    </td>
-
-                    <td>
-                      {getOrderDate(order)}
-                    </td>
-
+                    <td>#{order.id ?? "N/A"}</td>
+                    <td>{getCustomerName(order)}</td>
+                    <td>{getOrderDate(order)}</td>
                     <td>
                       {formatCurrency(getOrderAmount(order))}
                     </td>
-
                     <td>
                       <span
                         className={`admin-badge ${getStatusClass(order.status)}`}
@@ -272,6 +453,7 @@ export default function AdminDashboard() {
           </div>
         )}
       </div>
+
     </div>
   );
 }

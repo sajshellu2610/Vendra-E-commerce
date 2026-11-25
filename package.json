@@ -19,6 +19,7 @@
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.18.5",
+    "recharts": "^3.11.1",
     "sonner": "^2.0.8",
     "tailwindcss": "^4.3.5"
   },
